@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { nanoid } from 'nanoid';
 
 import { GlobalStyle } from './GlobalStyle';
 import { Box } from './Box';
