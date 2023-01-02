@@ -1,53 +1,48 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-// import PropTypes from 'prop-types';
-// #TODO
+import PropTypes from 'prop-types';
 
 import { Overlay, ModalContainer } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default class Modal extends Component {
-  // static propTypes = {
-  //   // contacts: PropTypes.arrayOf(
-  //   //   PropTypes.shape({
-  //   //     id: PropTypes.string.isRequired,
-  //   //     name: PropTypes.string.isRequired,
-  //   //     number: PropTypes.string.isRequired,
-  //   //   })
-  //   // ),
-  //   // filter: PropTypes.string,
-  // };
+const Modal = ({ src, alt, onClose }) => {
+  useEffect(() => {
+    //componenDidMount
+    window.addEventListener('keydown', handleKeyDown);
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
+    return () => {
+      //componentDidUnmount
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  handleKeyDown = e => {
+  const handleKeyDown = e => {
     if (e.code === 'Escape') {
-      this.props.onClose();
+      onClose();
     }
   };
 
-  handleBackdropClick = e => {
+  const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
-      this.props.onClose();
+      onClose();
     }
   };
 
-  render() {
-    const { src, alt } = this.props;
-    return createPortal(
-      <Overlay onClick={this.handleBackdropClick}>
-        <ModalContainer>
-          <img src={src} alt={alt} loading="lazy" />
-        </ModalContainer>
-      </Overlay>,
-      modalRoot
-    );
-  }
-}
+  return createPortal(
+    <Overlay onClick={handleBackdropClick}>
+      <ModalContainer>
+        <img src={src} alt={alt} loading="lazy" />
+      </ModalContainer>
+    </Overlay>,
+    modalRoot
+  );
+};
+
+export default Modal;
+
+Modal.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  onOpenModal: PropTypes.func.isRequired,
+};
