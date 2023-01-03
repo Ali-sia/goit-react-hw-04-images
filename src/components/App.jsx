@@ -16,6 +16,7 @@ export const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [photos, setPhotos] = useState(null);
   const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('idle');
   const [showModal, setShowModal] = useState(false);
@@ -24,12 +25,12 @@ export const App = () => {
 
   useEffect(() => {
     if (!searchQuery) {
-      console.log('dont work in first render');
       return;
     }
 
     //задати початковий стейт
     setPage(1);
+    setTotalPage(0);
     setPhotos(null);
     setStatus('pending');
     setError(null);
@@ -37,8 +38,9 @@ export const App = () => {
     //запит до API з новим запитом
     fetchPhotosAPI(searchQuery, 1)
       .then(photos => {
-        setPhotos(photos);
+        setPhotos(photos.hits);
         setStatus('resolved');
+        setTotalPage(photos.totalHits);
       })
       //обробка звичайної помилки
       .catch(error => {
@@ -48,16 +50,20 @@ export const App = () => {
   }, [searchQuery]);
 
   useEffect(() => {
-    fetchPhotosAPI(searchQuery, page).then(newPhotos => {
-      //записати в стейт нові значення (відповід сервера + запис нового запита, зміна статусу)
-      setPhotos([...photos, ...newPhotos]);
-      setStatus('resolved');
-    });
-    //обробка звичайної помилки
-    // .catch(error => {
-    //   setStatus('regected');
-    //   setError(error);
-    // });
+    if (page === 1) {
+      return;
+    }
+    fetchPhotosAPI(searchQuery, page)
+      .then(newPhotos => {
+        //записати в стейт нові значення (відповід сервера + запис нового запита, зміна статусу)
+        setPhotos([...photos, ...newPhotos.hits]);
+        setStatus('resolved');
+      })
+      // обробка звичайної помилки
+      .catch(error => {
+        setStatus('regected');
+        setError(error);
+      });
   }, [page]);
 
   //заменить на просто подстановку setSearchQuery(searchQuery)
@@ -89,7 +95,7 @@ export const App = () => {
       {status === 'resolved' && (
         <>
           <ImageGallery photos={photos} onOpenModal={onOpenModal} />
-          {photos.length === 12 && <Button onLoadMore={onLoadMore} />}
+          {photos.length < totalPage && <Button onLoadMore={onLoadMore} />}
         </>
       )}
       {status === 'pending' && <Loader />}

@@ -44,5 +44,5 @@ export default Modal;
 Modal.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  onOpenModal: PropTypes.func.isRequired,
+  onOpenModal: PropTypes.func,
 };
