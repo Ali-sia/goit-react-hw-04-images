@@ -17,7 +17,7 @@ export const App = () => {
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [status, setStatus] = useState('idle');
   const [showModal, setShowModal] = useState(false);
   const [largeImageURL, setLargeImageURL] = useState('');
@@ -125,7 +125,7 @@ export const App = () => {
     setPage(1);
     setTotalPage(0);
     setPhotos([]);
-    setError(null);
+    setError('');
   };
 
   //заменить на просто подстановку setSearchQuery(searchQuery)
