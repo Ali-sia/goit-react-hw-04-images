@@ -153,16 +153,18 @@ export const App = () => {
     <Box display="grid" gridTemplateColumns="1fr" gridGap="16px" pb="24px">
       <Searchbar onSearch={handleFormSubmit} />
 
+      {/* <Button onLoadMore={onLoadMore} /> */}
+
       {status === 'idle' && <div>Enter your photo query</div>}
-      {status === 'pending' && <Loader />}
       {status === 'rejected' && <PendingErrorMessage message={error.message} />}
 
-      {status === 'resolved' && (
+      {photos.length > 0 && (
         <ImageGallery photos={photos} onOpenModal={onOpenModal} />
       )}
       {status === 'resolved' && photos.length < totalPage && (
         <Button onLoadMore={onLoadMore} />
       )}
+      {status === 'pending' && <Loader />}
 
       {showModal && (
         <Modal onClose={toggleModal} src={largeImageURL} alt={tags} />

@@ -1,6 +1,17 @@
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { GalleryItem, GalleryImage } from './ImageGalleryItem.styled';
 
+// class ImageGalleryItem extends PureComponent {
+//   render() {
+//     const { onOpenModal, webformatURL, largeImageURL, tags } = this.props;
+//     return (
+//       <GalleryItem onClick={() => onOpenModal(largeImageURL, tags)}>
+//         <GalleryImage src={webformatURL} alt={tags} />
+//       </GalleryItem>
+//     );
+//   }
+// }
 const ImageGalleryItem = ({
   onOpenModal,
   webformatURL,
