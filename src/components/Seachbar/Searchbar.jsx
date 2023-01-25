@@ -34,7 +34,23 @@ const Searchbar = ({ onSearch }) => {
     <SearcHeader>
       <SearchForm onSubmit={handleSubmit}>
         <SearchButton type="submit">
-          <span>Search</span>
+          {/* <span>Search</span> */}
+          <span>
+            <svg
+              class="svg-icon search-icon"
+              aria-labelledby="title desc"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 19.9 19.7"
+            >
+              <title id="title">Search Icon</title>
+              <desc id="desc">A magnifying glass icon.</desc>
+              <g class="search-path" fill="none" stroke="#848F91">
+                <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4" />
+                <circle cx="8" cy="8" r="7" />
+              </g>
+            </svg>
+          </span>
         </SearchButton>
 
         <SearchInput
@@ -56,59 +72,3 @@ export default Searchbar;
 Searchbar.propTypes = {
   searchQuery: PropTypes.string,
 };
-// export default class Searchbar extends Component {
-//   static propTypes = {
-//     searchQuery: PropTypes.string,
-//   };
-
-//   state = {
-//     searchQuery: '',
-//   };
-
-//   //-> при зміні значення в інпуті
-//   handleChange = e => {
-//     //записати значення запиту в локальний стейт
-//     this.setState({
-//       searchQuery: e.currentTarget.value.toLowerCase(),
-//     });
-//   };
-
-//   //-> при відправці форми
-//   handleSubmit = e => {
-//     e.preventDefault();
-
-//     //перевірити запит на пустоту
-//     if (this.state.searchQuery.trim() === '') {
-//       return alert('enter query');
-//     }
-//     //передати значення запиту через пропси в апп
-//     this.props.onSearch(this.state.searchQuery);
-
-//     //очистити форму від старого запиту
-//     this.setState({ searchQuery: '' });
-//     // e.target.searchQuery.value = '';
-//   };
-
-//   render() {
-//     const { searchQuery } = this.state;
-//     return (
-//       <SearcHeader>
-//         <SearchForm onSubmit={this.handleSubmit}>
-//           <SearchButton type="submit">
-//             <span>Search</span>
-//           </SearchButton>
-
-//           <SearchInput
-//             type="text"
-//             name="searchQuery"
-//             value={searchQuery}
-//             autocomplete="off"
-//             autofocus
-//             placeholder="Search images and photos"
-//             onChange={this.handleChange}
-//           />
-//         </SearchForm>
-//       </SearcHeader>
-//     );
-//   }
-// }

@@ -23,76 +23,6 @@ export const App = () => {
   const [largeImageURL, setLargeImageURL] = useState('');
   const [tags, setTags] = useState('');
 
-  // useEffect(() => {
-  //   if (!searchQuery) {
-  //     return setStatus('idle');
-  //   }
-
-  //   //задати початковий стейт
-
-  //   setStatus('pending');
-  //   setPage(1);
-  //   setTotalPage(0);
-  //   setPhotos(null);
-  //   setError(null);
-
-  //   //запит до API з новим запитом
-  //   fetchPhotosAPI(searchQuery, 1)
-  //     .then(photos => {
-  //       setPhotos(photos.hits);
-  //       setStatus('resolved');
-  //       setTotalPage(photos.totalHits);
-  //     })
-  //     //обробка звичайної помилки
-  //     .catch(error => {
-  //       setStatus('regected');
-  //       setError(error);
-  //     });
-  // }, [searchQuery]);
-
-  // useEffect(() => {
-  //   if (page === 1) {
-  //     return;
-  //   }
-  //   fetchPhotosAPI(searchQuery, page)
-  //     .then(newPhotos => {
-  //       //записати в стейт нові значення (відповід сервера + запис нового запита, зміна статусу)
-  //       setPhotos([...photos, ...newPhotos.hits]);
-  //       setStatus('resolved');
-  //     })
-  //     // обробка звичайної помилки
-  //     .catch(error => {
-  //       setStatus('regected');
-  //       setError(error);
-  //     });
-  // }, [page]);
-
-  // useEffect(() => {
-  //   if (!searchQuery) {
-  //     return;
-  //   }
-
-  //   setStatus('pending');
-
-  //   fetchPhotosAPI(searchQuery, page)
-  //     .then(newPhoto => {
-  //       if (page === 1) {
-  //         setPhotos(newPhoto.hits);
-  //         setTotalPage(newPhoto.totalHits);
-  //       } else {
-  //         setPhotos(prevState => {
-  //           return [...prevState, ...newPhoto.hits];
-  //         });
-  //       }
-
-  //       setStatus('resolved');
-  //     })
-  //     .catch(error => {
-  //       setStatus('regected');
-  //       setError(error);
-  //     });
-  // }, [page, searchQuery]);
-
   useEffect(() => {
     if (!searchQuery) return;
 
@@ -153,9 +83,7 @@ export const App = () => {
     <Box display="grid" gridTemplateColumns="1fr" gridGap="16px" pb="24px">
       <Searchbar onSearch={handleFormSubmit} />
 
-      {/* <Button onLoadMore={onLoadMore} /> */}
-
-      {status === 'idle' && <div>Enter your photo query</div>}
+      {status === 'idle' && <Box m={4}>Enter your photo query</Box>}
       {status === 'rejected' && <PendingErrorMessage message={error.message} />}
 
       {photos.length > 0 && (

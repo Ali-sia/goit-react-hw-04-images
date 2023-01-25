@@ -31,14 +31,10 @@ export const SearchForm = styled.form`
 
 export const SearchButton = styled.button`
   display: inline-block;
-  // width: 48px;
+  width: 48px;
   height: 48px;
   border: 0;
-  // background-image: url('https://www.flaticon.com/free-icon/search-interface-symbol_54481?term=search&page=1&position=1&origin=search&related_id=54481');
-  // background-size: 40%;
-  // background-repeat: no-repeat;
-  // background-position: center;
-  opacity: 0.6;
+
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
@@ -48,18 +44,6 @@ export const SearchButton = styled.button`
     opasity: 1;
   }
 `;
-
-// export const SearchLabel = styled.span`
-// position: absolute;
-// width: 1px;
-// height: 1px;
-// padding: ${p => p.theme.space[0]};
-// overflow: hidden;
-// clip: rect(0, 0, 0, 0);
-// white-space: nowrap;
-// clip-path: inset(50%);
-// border: ${p => p.theme.space[0]};
-// `;
 
 export const SearchInput = styled.input`
   display: inline-block;
